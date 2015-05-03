@@ -3,7 +3,7 @@ class RenderTree(object):
     def is_leaf(self):
         raise NotImplemented("Implement in subclass")
 
-    def render(self):
+    def render(self, prefix=None):
         raise NotImplemented("Implement in subclass")
 
 
@@ -16,24 +16,25 @@ class ModifierNode(RenderTree):
     def is_leaf(self):
         return False
 
-    def render(self):
+    def render(self, prefix=''):
         if not self.children:
             return ''
-        rendered_children = [child.render() for child in self.children]
-        return self.modifier + ''.join(rendered_children)
+        accumulated_modifiers = prefix + self.modifier
+        rendered_children = [child.render(accumulated_modifiers) for child in self.children]
+        return ''.join(rendered_children)
 
 
 class TokenNode(RenderTree):
-    def __init__(self, value=None, clear=None):
-        self.value = value or ''
-        self.clear = clear or ''
+    def __init__(self, value='', clear=''):
+        self.value = value
+        self.clear = clear
 
     @property
     def is_leaf(self):
         return True
 
-    def render(self):
-        return self.value + self.clear
+    def render(self, prefix=''):
+        return prefix + self.value + self.clear
 
 
 class Renderer(object):

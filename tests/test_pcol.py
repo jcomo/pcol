@@ -21,7 +21,18 @@ class ModifierNodeTestCase(unittest.TestCase):
         child1 = TokenNode('child1')
         child2 = TokenNode('child2')
         t = ModifierNode('[yellow]', [child1, child2])
-        expected = '[yellow]%s%s' % (child1.render(), child2.render())
+        expected = '[yellow]%s[yellow]%s' % (child1.render(), child2.render())
+        self.assertEqual(expected, t.render())
+
+    def test_complex_render_tree(self):
+        clear = '[CL]'
+        some = TokenNode('Some', clear=clear)
+        really = TokenNode('really', clear=clear)
+        important = ModifierNode('[underline]', [TokenNode('important', clear=clear)])
+        info = TokenNode('information', clear=clear)
+        callout = ModifierNode('[bold]', [really, important])
+        t = ModifierNode('[red]', [some, callout, info])
+        expected = '[red]Some[CL][red][bold]really[CL][red][bold][underline]important[CL][red]information[CL]'
         self.assertEqual(expected, t.render())
 
 
