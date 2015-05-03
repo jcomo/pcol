@@ -7,10 +7,10 @@ class RenderTree(object):
 
 
 class ModifierNode(RenderTree):
-    def __init__(self, modifier, children, separator=''):
+    def __init__(self, modifier, children, separator=None):
         self.modifier = modifier
         self.children = children
-        self.separator = separator
+        self.separator = separator or ''
 
     def render(self, prefix=''):
         if not self.children:
@@ -21,9 +21,9 @@ class ModifierNode(RenderTree):
 
 
 class TokenNode(RenderTree):
-    def __init__(self, value='', clear=''):
-        self.value = value
-        self.clear = clear
+    def __init__(self, value=None, clear=None):
+        self.value = value or ''
+        self.clear = clear or ''
 
     def render(self, prefix=''):
         return prefix + self.value + self.clear
@@ -31,13 +31,15 @@ class TokenNode(RenderTree):
 
 def render_with(modifier):
     def __construct_modifier_tree(self, *tokens):
-        clear = getattr(self, '__clear__', '')
+        clear = getattr(self, '__clear__', None)
+        separator = getattr(self, '__separator__', None)
         get_node = lambda t: t if isinstance(t, RenderTree) else TokenNode(t, clear)
-        return ModifierNode(modifier, [get_node(token) for token in tokens])
+        return ModifierNode(modifier, [get_node(token) for token in tokens], separator)
     return __construct_modifier_tree
 
 
 class _Pcol(object):
+    __separator__ = ' '
     __clear__ = '\033[0m'
 
     bold = render_with('\033[1m')

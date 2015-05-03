@@ -118,3 +118,7 @@ class LibraryDefaultsTestCase(unittest.TestCase):
         self.assertEqual('\033[35mHI\033[0m', str(pcol.magenta('HI')))
         self.assertEqual('\033[36mHI\033[0m', str(pcol.cyan('HI')))
         self.assertEqual('\033[37mHI\033[0m', str(pcol.white('HI')))
+
+    def test_it_separates_with_spaces(self):
+        expected = str(pcol.green('Hello')) + ' ' + str(pcol.green('World!'))
+        self.assertEqual(expected, str(pcol.green('Hello', 'World!')))
