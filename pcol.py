@@ -3,7 +3,7 @@ class RenderTree(object):
     def is_leaf(self):
         raise NotImplemented("Implement in subclass")
 
-    def render(self, prefix=None):
+    def render(self, prefix=''):
         raise NotImplemented("Implement in subclass")
 
 
