@@ -37,7 +37,7 @@ def _render_with(modifier):
 
 class Renderer(object):
     __clear__ = '[clear]'
-    
+
     green = _render_with('[green]')
     bold = _render_with('[bold]')
 

@@ -73,7 +73,6 @@ class RendererTestCase(unittest.TestCase):
         output = pcol.green('hey', 'there')
         self.assertEqual('[green]hey[clear][green]there[clear]', str(output))
 
-    @unittest.skip("Not done yet")
     def test_render_with_two_modifiers(self):
         output = pcol.green('hey', pcol.bold('there'))
         self.assertEqual('[green]hey[clear][green][bold]there[clear]', str(output))
