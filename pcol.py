@@ -36,11 +36,20 @@ def render_with(modifier):
     return __construct_modifier_tree
 
 
-class Renderer(object):
-    __clear__ = '[clear]'
+class _Pcol(object):
+    __clear__ = '\033[0m'
 
-    green = render_with('[green]')
-    bold = render_with('[bold]')
+    bold = render_with('\033[1m')
+    underline = render_with('\033[4m')
+
+    black = render_with('\033[30m')
+    red = render_with('\033[31m')
+    green = render_with('\033[32m')
+    yellow = render_with('\033[33m')
+    blue = render_with('\033[34m')
+    magenta = render_with('\033[35m')
+    cyan = render_with('\033[36m')
+    white = render_with('\033[37m')
 
 
-pcol = Renderer()
+pcol = _Pcol()

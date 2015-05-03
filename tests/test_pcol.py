@@ -97,4 +97,17 @@ class RendererTestCase(unittest.TestCase):
 
 
 class LibraryDefaultsTestCase(unittest.TestCase):
-    pass
+    """Test that the pcol object uses the proper defaults"""
+
+    def test_has_appropriate_modifiers(self):
+        self.assertEqual('\033[1mHI\033[0m', str(pcol.bold('HI')))
+        self.assertEqual('\033[4mHI\033[0m', str(pcol.underline('HI')))
+
+        self.assertEqual('\033[30mHI\033[0m', str(pcol.black('HI')))
+        self.assertEqual('\033[31mHI\033[0m', str(pcol.red('HI')))
+        self.assertEqual('\033[32mHI\033[0m', str(pcol.green('HI')))
+        self.assertEqual('\033[33mHI\033[0m', str(pcol.yellow('HI')))
+        self.assertEqual('\033[34mHI\033[0m', str(pcol.blue('HI')))
+        self.assertEqual('\033[35mHI\033[0m', str(pcol.magenta('HI')))
+        self.assertEqual('\033[36mHI\033[0m', str(pcol.cyan('HI')))
+        self.assertEqual('\033[37mHI\033[0m', str(pcol.white('HI')))
