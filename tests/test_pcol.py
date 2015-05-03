@@ -9,23 +9,23 @@ class ModifierNodeTestCase(unittest.TestCase):
 
     def test_modifier_renders_children(self):
         child = TokenNode('leaf')
-        t = ModifierNode('[blue]', [child])
-        expected = '[blue]%s' % child.render()
+        t = ModifierNode('[B]', [child])
+        expected = '[B]%s' % child.render()
         self.assertEqual(expected, t.render())
 
     def test_modifier_renders_all_children(self):
         child1 = TokenNode('child1')
         child2 = TokenNode('child2')
-        t = ModifierNode('[yellow]', [child1, child2])
-        expected = '[yellow]%s[yellow]%s' % (child1.render(), child2.render())
+        t = ModifierNode('[Y]', [child1, child2])
+        expected = '[Y]%s[Y]%s' % (child1.render(), child2.render())
         self.assertEqual(expected, t.render())
 
     def test_modifier_renders_with_complex_children(self):
         left = TokenNode('Why')
-        middle = ModifierNode('[bold]', [TokenNode('hello')])
+        middle = ModifierNode('[B]', [TokenNode('hello')])
         right = TokenNode('there')
-        t = ModifierNode('[green]', [left, middle, right])
-        expected = '[green]%s[green]%s[green]%s' % (left.render(), middle.render(), right.render())
+        t = ModifierNode('[G]', [left, middle, right])
+        expected = '[G]%s[G]%s[G]%s' % (left.render(), middle.render(), right.render())
         self.assertEqual(expected, t.render())
 
     def test_complex_render_tree(self):
@@ -34,12 +34,12 @@ class ModifierNodeTestCase(unittest.TestCase):
         some = TokenNode('Some', clear=clear)
 
         really = TokenNode('really', clear=clear)
-        important = ModifierNode('[underline]', [TokenNode('important', clear=clear)])
+        important = ModifierNode('[U]', [TokenNode('important', clear=clear)])
         info = TokenNode('information', clear=clear)
-        callout = ModifierNode('[bold]', [really, important])
+        callout = ModifierNode('[B]', [really, important])
 
-        t = ModifierNode('[red]', [some, callout, info])
-        expected = '[red]Some[CL][red][bold]really[CL][red][bold][underline]important[CL][red]information[CL]'
+        t = ModifierNode('[R]', [some, callout, info])
+        expected = '[R]Some[CL][R][B]really[CL][R][B][U]important[CL][R]information[CL]'
         self.assertEqual(expected, t.render())
 
 
