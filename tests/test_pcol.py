@@ -3,10 +3,6 @@ from pcol import ModifierNode, TokenNode, pcol
 
 
 class ModifierNodeTestCase(unittest.TestCase):
-    def test_modifier_node_is_not_leaf(self):
-        t = ModifierNode('green', [TokenNode('child1'), TokenNode('child2')])
-        assert not t.is_leaf, "Expected modifier tree not to be leaf"
-
     def test_modifier_does_not_render_without_children(self):
         t = ModifierNode('red', [])
         self.assertEqual('', t.render())
@@ -48,10 +44,6 @@ class ModifierNodeTestCase(unittest.TestCase):
 
 
 class TokenNodeTestCase(unittest.TestCase):
-    def test_token_node_is_leaf(self):
-        t = TokenNode('leaf')
-        assert t.is_leaf, "Expected token to be leaf"
-
     def test_clear_is_nothing_by_default(self):
         t = TokenNode('hey')
         self.assertEqual('hey', t.render())
