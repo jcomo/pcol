@@ -24,15 +24,16 @@ class ModifierNode(RenderTree):
 
 
 class TokenNode(RenderTree):
-    def __init__(self, value=None):
+    def __init__(self, value=None, clear=None):
         self.value = value or ''
+        self.clear = clear or ''
 
     @property
     def is_leaf(self):
         return True
 
     def render(self):
-        return self.value + '[clear]'
+        return self.value + self.clear
 
 
 class Renderer(object):

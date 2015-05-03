@@ -30,12 +30,16 @@ class TokenNodeTestCase(unittest.TestCase):
         t = TokenNode('leaf')
         assert t.is_leaf, "Expected token to be leaf"
 
+    def test_clear_is_nothing_by_default(self):
+        t = TokenNode('hey')
+        self.assertEqual('hey', t.render())
+
     def test_empty_token_just_renders_clear(self):
-        t = TokenNode()
+        t = TokenNode(clear='[clear]')
         self.assertEqual('[clear]', t.render())
 
     def test_token_render_renders_with_clear(self):
-        t = TokenNode('hey')
+        t = TokenNode('hey', clear='[clear]')
         self.assertEqual('hey[clear]', t.render())
 
 
