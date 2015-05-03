@@ -1,4 +1,7 @@
 class RenderTree(object):
+    def __str__(self):
+        return self.render()
+
     def render(self, prefix=''):
         raise NotImplemented("Implement in subclass")
 
@@ -25,17 +28,18 @@ class TokenNode(RenderTree):
         return prefix + self.value + self.clear
 
 
+def _render_with(modifier):
+    def __construct_modifier_tree(self, *tokens):
+        token_nodes = [token if isinstance(token, RenderTree) else TokenNode(token, clear=self.__clear__) for token in tokens]
+        return ModifierNode(modifier, token_nodes)
+    return __construct_modifier_tree
+
+
 class Renderer(object):
-    def _render(self, color, tokens):
-        if not tokens:
-            return ''
-        rendered_color = '[%s]' % color
-        return ''.join(rendered_color + token + '[clear]' for token in tokens)
+    __clear__ = '[clear]'
+    
+    green = _render_with('[green]')
+    bold = _render_with('[bold]')
 
-    def green(self, *tokens):
-        return self._render('green', tokens)
-
-    def bold(self, *tokens):
-        return self._render('bold', tokens)
 
 pcol = Renderer()

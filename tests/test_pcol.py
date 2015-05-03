@@ -52,9 +52,13 @@ class TokenNodeTestCase(unittest.TestCase):
         t = TokenNode(clear='[clear]')
         self.assertEqual('[clear]', t.render())
 
-    def test_token_render_renders_with_clear(self):
+    def test_token_renders_with_clear(self):
         t = TokenNode('hey', clear='[clear]')
         self.assertEqual('hey[clear]', t.render())
+
+    def test_token_renders_with_supplied_prefix(self):
+        t = TokenNode('hey')
+        self.assertEqual('[A]hey', t.render('[A]'))
 
 
 class RendererTestCase(unittest.TestCase):
