@@ -1,5 +1,5 @@
 import unittest
-from pcol import ModifierNode, TokenNode, pcol
+from pcol import pcol, ModifierNode, TokenNode, render_with
 
 
 class ModifierNodeTestCase(unittest.TestCase):
@@ -61,18 +61,40 @@ class TokenNodeTestCase(unittest.TestCase):
         self.assertEqual('[A]hey', t.render('[A]'))
 
 
+class MyRenderer(object):
+    __clear__ = '[CL]'
+
+    green = render_with('[G]')
+    bold = render_with('[B]')
+
+
 class RendererTestCase(unittest.TestCase):
+    def setUp(self):
+        self.renderer = MyRenderer()
+
     def test_render_nothing_should_be_empty_string(self):
-        self.assertEqual('', str(pcol.green()))
+        self.assertEqual('', str(self.renderer.green()))
+
+    def test_no_clear_class_value_should_be_ok(self):
+
+        class RendererWithoutClear(object):
+            purple = render_with('[P]')
+
+        renderer = RendererWithoutClear()
+        renderer.purple('no clear')
 
     def test_render_with_one_token_should_render_with_color(self):
-        output = pcol.green('hey')
-        self.assertEqual('[green]hey[clear]', str(output))
+        output = self.renderer.green('hey')
+        self.assertEqual('[G]hey[CL]', str(output))
 
     def test_render_with_multiple_tokens_should_render_all_independently(self):
-        output = pcol.green('hey', 'there')
-        self.assertEqual('[green]hey[clear][green]there[clear]', str(output))
+        output = self.renderer.green('hey', 'there')
+        self.assertEqual('[G]hey[CL][G]there[CL]', str(output))
 
     def test_render_with_two_modifiers(self):
-        output = pcol.green('hey', pcol.bold('there'))
-        self.assertEqual('[green]hey[clear][green][bold]there[clear]', str(output))
+        output = self.renderer.green('hey', self.renderer.bold('there'))
+        self.assertEqual('[G]hey[CL][G][B]there[CL]', str(output))
+
+
+class LibraryDefaultsTestCase(unittest.TestCase):
+    pass

@@ -28,18 +28,19 @@ class TokenNode(RenderTree):
         return prefix + self.value + self.clear
 
 
-def _render_with(modifier):
+def render_with(modifier):
     def __construct_modifier_tree(self, *tokens):
-        token_nodes = [token if isinstance(token, RenderTree) else TokenNode(token, clear=self.__clear__) for token in tokens]
-        return ModifierNode(modifier, token_nodes)
+        clear = getattr(self, '__clear__', '')
+        get_node = lambda t: t if isinstance(t, RenderTree) else TokenNode(t, clear)
+        return ModifierNode(modifier, [get_node(token) for token in tokens])
     return __construct_modifier_tree
 
 
 class Renderer(object):
     __clear__ = '[clear]'
 
-    green = _render_with('[green]')
-    bold = _render_with('[bold]')
+    green = render_with('[green]')
+    bold = render_with('[bold]')
 
 
 pcol = Renderer()
