@@ -13,6 +13,13 @@ class ModifierNodeTestCase(unittest.TestCase):
         expected = '[B]%s' % child.render()
         self.assertEqual(expected, t.render())
 
+    def test_modifier_renders_children_with_separator(self):
+        left = TokenNode('left')
+        right = TokenNode('right')
+        t = ModifierNode('[B]', [left, right], separator=' ')
+        expected = '[B]%s [B]%s' % (left.render(), right.render())
+        self.assertEqual(expected, t.render())
+
     def test_modifier_renders_all_children(self):
         child1 = TokenNode('child1')
         child2 = TokenNode('child2')

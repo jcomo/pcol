@@ -7,16 +7,17 @@ class RenderTree(object):
 
 
 class ModifierNode(RenderTree):
-    def __init__(self, modifier, children):
+    def __init__(self, modifier, children, separator=''):
         self.modifier = modifier
         self.children = children
+        self.separator = separator
 
     def render(self, prefix=''):
         if not self.children:
             return ''
         accumulated_modifiers = prefix + self.modifier
         rendered_children = [child.render(accumulated_modifiers) for child in self.children]
-        return ''.join(rendered_children)
+        return self.separator.join(rendered_children)
 
 
 class TokenNode(RenderTree):
