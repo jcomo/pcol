@@ -16,10 +16,16 @@ class ModifierNode(RenderTree):
     def is_leaf(self):
         return False
 
+    def render(self):
+        if not self.children:
+            return ''
+        rendered_children = [child.render() for child in self.children]
+        return self.modifier + ''.join(rendered_children)
+
 
 class TokenNode(RenderTree):
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, value=None):
+        self.value = value or ''
 
     @property
     def is_leaf(self):
