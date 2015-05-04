@@ -3,6 +3,12 @@ A straightforward color rendering library for python.
 
 ## Usage
 
+Install the package from PyPI
+
+```
+pip install pcol
+```
+
 ```python
 from pcol import pcol
 
