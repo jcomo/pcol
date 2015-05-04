@@ -25,6 +25,9 @@ class ModifierNode(RenderTree):
         self.children = children
         self.separator = separator or ''
 
+    def __repr__(self):
+        return '%s(%s, children=%d)' % (self.__class__.__name__, self.modifier, len(self.children))
+
     def render(self, prefix=''):
         """
         Renders the modifier node by pre-pending the modifier to each child. When rendering
@@ -52,6 +55,9 @@ class TokenNode(RenderTree):
         """
         self.value = value or ''
         self.clear = clear or ''
+
+    def __repr__(self):
+        return '%s(%s, clear=%s)' % (self.__class__.__name__, self.value, self.clear)
 
     def render(self, prefix=''):
         """

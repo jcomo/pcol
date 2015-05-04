@@ -3,6 +3,11 @@ from pcol import pcol, ModifierNode, TokenNode, render_with
 
 
 class ModifierNodeTestCase(unittest.TestCase):
+    def test_repr(self):
+        t = ModifierNode('[R]', [])
+        expected = 'ModifierNode([R], children=0)'
+        self.assertEqual(expected, repr(t))
+
     def test_modifier_does_not_render_without_children(self):
         t = ModifierNode('red', [])
         self.assertEqual('', t.render())
@@ -51,6 +56,11 @@ class ModifierNodeTestCase(unittest.TestCase):
 
 
 class TokenNodeTestCase(unittest.TestCase):
+    def test_repr(self):
+        t = TokenNode('something', clear='CL')
+        expected = 'TokenNode(something, clear=CL)'
+        self.assertEqual(expected, repr(t))
+
     def test_clear_is_nothing_by_default(self):
         t = TokenNode('hey')
         self.assertEqual('hey', t.render())
