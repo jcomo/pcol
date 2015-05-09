@@ -1,6 +1,8 @@
 # pcol
 A straightforward color rendering library for python.
 
+![](https://travis-ci.org/jcomo/pcol.svg?branch=master)
+
 ## Usage
 
 Install the package from PyPI
